@@ -96,12 +96,7 @@ class Enrollment(models.Model):
 
     def __str__(self):
        return f"{self.user} enrolled in {self.course} in {self.date_enrolled} with the rating of {self.rating}"
-   
-# <HINT> Create a Question Model with:
-    # Used to persist question content for a course
-    # Has a One-To-Many (or Many-To-Many if you want to reuse questions) relationship with course
-    # Has a grade point for each question
-    # Other fields and methods you would like to design
+
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     lesson = models.ForeignKey(Course, on_delete=models.CASCADE) 
@@ -118,12 +113,7 @@ class Question(models.Model):
     def __str__(self) -> str:
         return self.question_text
 
-#  <HINT> Create a Choice Model with:
-    # Used to persist choice content for a question
-    # One-To-Many (or Many-To-Many if you want to reuse choices) relationship with Question
-    # Choice content
-    # Indicate if this choice of the question is a correct one or not
-    # Other fields and methods you would like to design
+
 class Choice(models.Model):
    choice_text = models.CharField(max_length=200)
    question =  models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -131,10 +121,6 @@ class Choice(models.Model):
    
    def __str__(self) -> str:
        return self.choice_text
-# <HINT> The submission model
-# One enrollment could have multiple submission
-# One submission could have multiple choices
-# One choice could belong to multiple submissions
 
 class Submission(models.Model):
    enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
@@ -142,4 +128,3 @@ class Submission(models.Model):
 
    def __str__(self) -> str:
        return f'{self.question}: {self.choices}'
-#    Other fields and methods you would like to design
